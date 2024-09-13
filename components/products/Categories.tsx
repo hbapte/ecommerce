@@ -2,9 +2,9 @@
 
 import Image from 'next/image'
 import { useCallback } from 'react'
+import { useRouter } from 'next/navigation'
 import useEmblaCarousel from 'embla-carousel-react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-
 
 useEmblaCarousel.globalOptions = { loop: true }
 
@@ -14,20 +14,33 @@ interface ClubCardProps {
   bgColor: string
 }
 
-const ClubCard: React.FC<ClubCardProps> = ({ title, imageSrc, bgColor }) => (
-  <div className={`relative overflow-hidden rounded-lg ${bgColor} aspect-square`}>
-    <Image
-      src={imageSrc}
-      alt={title}
-      layout="fill"
-      objectFit="cover"
-      className="transition-transform duration-300 hover:scale-105"
-    />
-    <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-20">
-      <h3 className="text-white text-2xl font-bold">{title}</h3>
+const ClubCard: React.FC<ClubCardProps> = ({ title, imageSrc, bgColor }) => {
+  const router = useRouter()
+
+  // Function to create a slug from the title
+  const handleCardClick = () => {
+    const slug = title.toLowerCase().replace(/\s+/g, '-')
+    router.push(`/club/${slug}`)
+  }
+
+  return (
+    <div
+      className={`relative overflow-hidden rounded-lg ${bgColor} aspect-square cursor-pointer`}
+      onClick={handleCardClick}
+    >
+      <Image
+        src={imageSrc}
+        alt={title}
+        layout="fill"
+        objectFit="cover"
+        className="transition-transform duration-300 hover:scale-105"
+      />
+      <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-20">
+        <h3 className="text-white text-2xl font-bold">{title}</h3>
+      </div>
     </div>
-  </div>
-)
+  )
+}
 
 const clubs = [
   { title: 'Arsenal', imageSrc: '/j1.webp?height=300&width=300', bgColor: 'bg-emerald-200' },

@@ -8,9 +8,9 @@ export default function PillTabs() {
 
   const tabs = [
     { id: 'all', label: 'All' },
-    { id: 'new', label: 'New' },
-    { id: 'retro', label: 'Retro Vintage' },
-    { id: 'custom', label: 'Custom' },
+    { id: 'football', label: 'Football' },
+    { id: 'basketball', label: 'Basketball' },
+    { id: 'formula1', label: 'Formula 1' },
   ]
 
   return (

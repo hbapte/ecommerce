@@ -1,14 +1,13 @@
 import BannerComponent from '@/components/club/Banner'
-import ProductCollection from '@/components/club/Jersey'
-import { ProductShowcaseComponent } from '@/components/product-showcase'
+import JerseyCollection from '@/components/jersey/JerseyCollection'
 import React from 'react'
 
 function CategoryPage() {
   return (
     <>
      <BannerComponent />
-    <ProductCollection />
-    <ProductShowcaseComponent />
+    <JerseyCollection />
+
 
     </>
   )

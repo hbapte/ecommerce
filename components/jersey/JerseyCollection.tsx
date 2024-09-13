@@ -1,11 +1,11 @@
-import PillTabs from "../shared/pill-tabs";
+import PillTabs from "@/components/jersey/pill-tabs";
 
 const jerseys = [
   {
     id: 1,
     title: "Nike Air MX Super 2500 - Red",
     image:
-      "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8c25lYWtlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
+      "https://images.unsplash.com/photo-1508354895968-a7ceee083492?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     price: "$449",
     originalPrice: "$699",
     discount: "39% OFF",
@@ -15,7 +15,7 @@ const jerseys = [
     id: 2,
     title: "Nike Air MX Super 2500 - Red",
     image:
-      "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8c25lYWtlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
+      "https://images.unsplash.com/photo-1517466787929-bc90951d0974?q=80&w=1886&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     price: "$449",
     originalPrice: "$699",
     discount: "39% OFF",
