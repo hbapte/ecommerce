@@ -5,13 +5,16 @@ import { useCallback } from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
-interface CategoryCardProps {
+
+useEmblaCarousel.globalOptions = { loop: true }
+
+interface ClubCardProps {
   title: string
   imageSrc: string
   bgColor: string
 }
 
-const CategoryCard: React.FC<CategoryCardProps> = ({ title, imageSrc, bgColor }) => (
+const ClubCard: React.FC<ClubCardProps> = ({ title, imageSrc, bgColor }) => (
   <div className={`relative overflow-hidden rounded-lg ${bgColor} aspect-square`}>
     <Image
       src={imageSrc}
@@ -26,17 +29,18 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ title, imageSrc, bgColor })
   </div>
 )
 
-const categories = [
-  { title: 'Furniture', imageSrc: '/j1.webp?height=300&width=300', bgColor: 'bg-emerald-200' },
-  { title: 'Hand Bag', imageSrc: '/j4.jpg?height=300&width=300', bgColor: 'bg-yellow-200' },
-  { title: 'Hand Bag', imageSrc: '/j5.webp?height=300&width=300', bgColor: 'bg-yellow-200' },
-  { title: 'Books', imageSrc: '/placeholder.svg?height=300&width=300', bgColor: 'bg-red-200' },
-  { title: 'Tech', imageSrc: '/placeholder.svg?height=300&width=300', bgColor: 'bg-green-200' },
-  { title: 'Sneakers', imageSrc: '/placeholder.svg?height=300&width=300', bgColor: 'bg-pink-200' },
-  { title: 'Travel', imageSrc: '/placeholder.svg?height=300&width=300', bgColor: 'bg-orange-200' },
+const clubs = [
+  { title: 'Arsenal', imageSrc: '/j1.webp?height=300&width=300', bgColor: 'bg-emerald-200' },
+  { title: 'FC Barcelona', imageSrc: '/j4.jpg?height=300&width=300', bgColor: 'bg-yellow-200' },
+  { title: 'Manchester Utd', imageSrc: '/j5.webp?height=300&width=300', bgColor: 'bg-yellow-200' },
+  { title: 'Real Madrid', imageSrc: '/placeholder.svg?height=300&width=300', bgColor: 'bg-red-200' },
+  { title: 'Argentina', imageSrc: '/placeholder.svg?height=300&width=300', bgColor: 'bg-green-200' },
+  { title: 'Dortmund', imageSrc: '/placeholder.svg?height=300&width=300', bgColor: 'bg-pink-200' },
+  { title: 'GSW', imageSrc: '/placeholder.svg?height=300&width=300', bgColor: 'bg-orange-200' },
+  { title: '76ers', imageSrc: '/placeholder.svg?height=300&width=300', bgColor: 'bg-orange-200' },
 ]
 
-export default function CategoriesHeader() {
+export default function TeamHeader() {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, align: 'start' })
 
   const scrollPrev = useCallback(() => {
@@ -49,13 +53,13 @@ export default function CategoriesHeader() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h2 className="text-3xl font-bold mb-6">Shop Our Top Categories</h2>
+      <h2 className="text-3xl font-bold mb-6">Shop by Club/Country</h2>
       <div className="relative">
         <div className="overflow-hidden" ref={emblaRef}>
           <div className="flex">
-            {categories.map((category, index) => (
+            {clubs.map((category, index) => (
               <div key={index} className="flex-[0_0_50%] min-w-0 sm:flex-[0_0_33.33%] md:flex-[0_0_25%] lg:flex-[0_0_16.66%] px-2">
-                <CategoryCard {...category} />
+                <ClubCard {...category} />
               </div>
             ))}
           </div>

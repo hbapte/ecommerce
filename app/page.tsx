@@ -1,6 +1,6 @@
 // import Incentive from "@/components/products/Incentive";
 // import Hero from '@/components/Hero';
-import ProductCollection from "@/components/products/ProductCollection";
+import JerseyCollection from "@/components/products/JerseyCollection";
 // import Card from "@/components/products/Card";
 // import ProductRecommendation from "@/components/products/Recommendation";
 // import Hero2 from "@/components/products/Hero";
@@ -10,8 +10,8 @@ import Footer from "@/components/common/Footer";
 // import FashionLandingPage from "@/components/Hero4";
 import Navbar from "@/components/common/Navbar";
 import Hero from "@/components/Hero2";
-import CategoriesHeader from "@/components/products/Categories";
-// import BrandComponent from "@/components/products/Brand";
+import TeamHeader from "@/components/products/Categories";
+import BrandComponent from "@/components/products/Brand";
 import BannerComponent from "@/components/products/Banner";
 import NewArrivals from "@/components/products/NewArrivals";
 // import SearchComponent from "@/components/form/search2";
@@ -32,14 +32,16 @@ export default function Home() {
 {/* <Card /> */}
 {/* <ProductRecommendation /> */}
 
-<CategoriesHeader />
+<TeamHeader />
 {/* <HeroComponent /> */}
 {/* <SearchComponent /> */}
 
-{/* <BrandComponent /> */}
 
-<ProductCollection />
+
+<JerseyCollection />
+
 <BannerComponent />
+<BrandComponent />
 <NewArrivals />
 {/* <Incentive /> */}
 <Footer />
