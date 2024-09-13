@@ -9,19 +9,33 @@ import "swiper/css/pagination";
 function Hero() {
   return (
     <div>
-      <section className="bg-white">
-        <div className="container flex flex-col px-6 py-4 mx-auto space-y-6 lg:h-[32rem] lg:py-16 lg:flex-row lg:items-center">
-          <div className="flex flex-col items-center w-full lg:flex-row lg:w-1/2">
-            <div className="max-w-lg lg:mx-12 lg:order-2">
-              <h1 className="text-3xl font-semibold tracking-wide text-gray-800 lg:text-4xl">The best Apple Watch apps</h1>
-              <p className="mt-4 text-gray-600">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aut quia asperiores alias vero magnam recusandae adipisci ad vitae laudantium quod rem voluptatem eos accusantium cumque.</p>
-              <div className="mt-6">
-                <a href="#" className="px-6 py-2.5 mt-6 text-sm font-medium leading-5 text-center text-white capitalize bg-blue-600 rounded-lg hover:bg-blue-500 lg:mx-0 lg:w-auto focus:outline-none">
-                  Download from App Store
-                </a>
-              </div>
+      <section className="bg-white min-h-[80vh]">
+        <div className="container flex flex-col px-6 justify-between py-4 mx-auto space-y-6 lg:h-[32rem] lg:py-16 lg:flex-row lg:items-center">
+        <div className="sm:w-2/3 lg:w-2/5 flex flex-col relative z-20">
+                <span className="w-20 h-2 bg-gray-800 ">
+                </span>
+                <h1
+                    className=" uppercase text-6xl sm:text-8xl font-black flex flex-col leading-none  text-gray-800">
+                    Be on
+                    <span className="text-5xl sm:text-7xl">
+                        Time
+                    </span>
+                </h1>
+                <p className="text-sm mt-6 sm:text-base text-gray-700">
+                    Dimension of reality that makes change possible and understandable. An indefinite and homogeneous
+                    environment in which natural events and human existence take place.
+                </p>
+                <div className="flex mt-8">
+                    <a href="#"
+                        className="uppercase py-2 px-4 rounded-lg bg-pink-500 border-2 border-transparent text-white text-md mr-4 hover:bg-pink-400">
+                        Get started
+                    </a>
+                    <a href="#"
+                        className="uppercase py-2 px-4 rounded-lg bg-transparent border-2 border-pink-500 text-pink-500  hover:bg-pink-500 hover:text-white text-md">
+                        Read more
+                    </a>
+                </div>
             </div>
-          </div>
 
           <div className="flex items-center justify-center w-full h-96 lg:w-1/2">
             {/* Swiper Carousel */}

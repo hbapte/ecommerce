@@ -2,6 +2,7 @@
 import "slick-carousel/slick/slick.css";
 // import "slick-carousel/slick/slick-theme.css";
 import Slider from 'react-slick';
+import Image from "next/image";
 
 const products = [
   {
@@ -40,7 +41,16 @@ const products = [
     discount: 37,
     rating: 4.5,
   },
-  // Add more products as needed
+  
+  {
+    id: 5,
+    name: "Nike Air MX Super 2500 - Red",
+    price: 699,
+    discountPrice: 449,
+    image: "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8c25lYWtlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
+    discount: 39,
+    rating: 3.0,
+  },
 ];
 
 export default function NewArrivals() {
@@ -49,11 +59,11 @@ export default function NewArrivals() {
         infinite: true,
         speed: 6000, // Slow down the scroll speed
         slidesToShow: 4,
-        slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 0, // Continuous sliding
-        cssEase: 'linear', // For a smooth continuous effect
-        pauseOnHover: false,
+    slidesToScroll: 1,
+    autoplay: true,
+    // pauseOnHover: true,       
+        autoplaySpeed: 0, 
+        cssEase: 'linear',      
         swipeToSlide: true,
         responsive: [
           {
@@ -98,7 +108,7 @@ export default function NewArrivals() {
               <div key={product.id} className="px-2">
                 <div className="relative flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md">
                   <a className="relative mx-3 mt-3 flex h-60 overflow-hidden rounded-xl" href="#">
-                    <img className="object-cover" src={product.image} alt={product.name} />
+                    <Image width={600} height={600} className="object-cover" src={product.image} alt={product.name} />
                     <span className="absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white">
                       {product.discount}
                     </span>

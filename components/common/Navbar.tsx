@@ -17,7 +17,7 @@ function Navbar() {
 
   return (
     <>
-      <header className="sticky flex top-0 flex-wrap md:justify-start md:flex-nowrap z-40 w-full bg-white border-b border-gray-200">
+      <header className="sticky bg-slate-50 flex top-0 flex-wrap md:justify-start md:flex-nowrap z-40 w-full border-b border-gray-200">
         <nav className="relative max-w-[85rem] w-full mx-auto md:flex md:items-center md:justify-between md:gap-3 py-2 px-4 sm:px-6 lg:px-8">
           <div className="flex w-full justify-between items-center gap-x-1">
             <a className=" font-semibold text-xl text-black focus:outline-none focus:opacity-80" href="#" aria-label="Brand">Brand</a>
