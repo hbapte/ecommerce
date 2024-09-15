@@ -1,126 +1,46 @@
-// components\products\JerseyCollection.tsx
-'use client'
+'use client';
 import Link from "next/link";
 import PillTabs from "../shared/pill-tabs";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { fetchJerseys } from "@/services/mockApis";
+import { Jersey } from "@/types/Jersey";
 
-const jerseys = [
-  {
-    id: 1,
-    name: "Barcelona Home Kit 23/24",
-    price: 649,
-    discountPrice: 499,
-    image: "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8YmFyY2Vsb25hfGVufDB8fDB8fHw%3D&auto=format&fit=crop&w=500&q=60",
-    discount: "23% OFF",
-    rating: 4.5,
-    type: "New",
-    class: "Home",
-    team: "Barcelona",
-    year: 2023,
-  },
-  {
-    id: 2,
-    name: "Arsenal Retro Kit 02/03",
-    price: 799,
-    discountPrice: 599,
-    image: "https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-    discount: "25% OFF",
-    rating: 4.9,
-    type: "Retro",
-    class: "Home",
-    team: "Arsenal",
-    year: 2003,
-  },
-  {
-    id: 3,
-    name: "Man United Away Kit 99/00",
-    price: 699,
-    discountPrice: 549,
-    image: "https://images.unsplash.com/photo-1575909610340-14f1881c0042?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-    discount: "21% OFF",
-    rating: 4.7,
-    type: "Vintage",
-    class: "Away",
-    team: "Manchester United",
-    year: 2000,
-  },
-  {
-    id: 4,
-    name: "AC Milan Custom Kit 23/24",
-    price: 899,
-    discountPrice: 699,
-    image: "https://images.unsplash.com/photo-1613933250571-31d737d6761d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-    discount: "22% OFF",
-    rating: 4.8,
-    type: "Custom",
-    class: "Third",
-    team: "AC Milan",
-    year: 2023,
-  },
-  {
-    id: 5,
-    name: "Real Madrid Vintage Kit 96/97",
-    price: 749,
-    discountPrice: 599,
-    image: "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cmVhbCUyMG1hZHJpZHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
-    discount: "20% OFF",
-    rating: 4.6,
-    type: "Vintage",
-    class: "Home",
-    team: "Real Madrid",
-    year: 1997,
-  },
-  {
-    id: 6,
-    name: "Chelsea Away Kit 22/23",
-    price: 649,
-    discountPrice: 499,
-    image: "https://images.unsplash.com/photo-1620155731653-b47af9751890?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-    discount: "23% OFF",
-    rating: 4.3,
-    type: "New",
-    class: "Away",
-    team: "Chelsea",
-    year: 2022,
-  },
-  {
-    id: 7,
-    name: "Juventus Custom Kit 22/23",
-    price: 849,
-    discountPrice: 649,
-    image: "https://images.unsplash.com/photo-1520967919012-70df527dcfa3?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-    discount: "24% OFF",
-    rating: 4.7,
-    type: "Custom",
-    class: "Third",
-    team: "Juventus",
-    year: 2023,
-  },
-  {
-    id: 8,
-    name: "Liverpool Retro Kit 90/91",
-    price: 799,
-    discountPrice: 649,
-    image: "https://images.unsplash.com/photo-1562106587-90819ff864bb?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-    discount: "19% OFF",
-    rating: 4.9,
-    type: "Retro",
-    class: "Home",
-    team: "Liverpool",
-    year: 1991,
-  },
-];
-
-export default function JerseyCollection() 
-{
+export default function JerseyCollection() {
   const [activeTab, setActiveTab] = useState('all');
+  const [jerseys, setJerseys] = useState<Jersey[]>([]); 
+  const [loading, setLoading] = useState(true); 
 
+  // Fetch jerseys when the component mounts
+  useEffect(() => {
+    const getJerseys = async () => {
+      try {
+        const fetchedJerseys = await fetchJerseys();
+        setJerseys(fetchedJerseys);
+      } catch (error) {
+        console.error("Failed to fetch jerseys:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    getJerseys();
+  }, []);
+
+
+
+
+  // Filter jerseys 
   const filteredJerseys = jerseys
-  .filter((jersey) => {
-    if (activeTab === 'all') return true;
-    return jersey.type.toLowerCase() === activeTab;
-  })
-  .slice(0, 4);
+    .filter((jersey) => {
+      if (activeTab === 'all') return true;
+      return jersey.type.toLowerCase() === activeTab;
+    })
+    .filter((jersey) => jersey.featured) 
+    .slice(0, 4); 
+
+  if (loading) {
+    return <p>Loading...</p>; 
+  }
 
   return (
     <div>
@@ -139,7 +59,7 @@ export default function JerseyCollection()
               >
                 <Link href={`/jersey/${jersey.id}`} passHref>
                   <div className="relative mx-3 mt-3 flex h-60 overflow-hidden rounded-xl">
-                    <img className="object-cover" src={jersey.image} alt={jersey.name} />
+                    <img className="object-cover" src={jersey.images[0]} alt={jersey.name} />
                     <span className="absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white">
                       {jersey.discount}
                     </span>

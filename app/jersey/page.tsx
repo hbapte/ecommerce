@@ -1,3 +1,4 @@
+// app\jersey\page.tsx
 import BannerComponent from '@/components/club/Banner'
 import JerseyCollection from '@/components/jersey/JerseyCollection'
 import React from 'react'

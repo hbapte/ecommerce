@@ -1,27 +1,21 @@
-'use client'
+'use client';
 
-import Image from 'next/image'
-import { useCallback } from 'react'
-import { useRouter } from 'next/navigation'
-import useEmblaCarousel from 'embla-carousel-react'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import Image from 'next/image';
+import { useCallback, useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import useEmblaCarousel from 'embla-carousel-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { fetchClubs, Club } from '@/services/mockClubAPI';
 
-useEmblaCarousel.globalOptions = { loop: true }
+useEmblaCarousel.globalOptions = { loop: true };
 
-interface ClubCardProps {
-  title: string
-  imageSrc: string
-  bgColor: string
-}
+const ClubCard: React.FC<Club> = ({ title, imageSrc, bgColor }) => {
+  const router = useRouter();
 
-const ClubCard: React.FC<ClubCardProps> = ({ title, imageSrc, bgColor }) => {
-  const router = useRouter()
-
-  // Function to create a slug from the title
   const handleCardClick = () => {
-    const slug = title.toLowerCase().replace(/\s+/g, '-')
-    router.push(`/club/${slug}`)
-  }
+    const slug = title.toLowerCase().replace(/\s+/g, '-');
+    router.push(`/club/${slug}`);
+  };
 
   return (
     <div
@@ -39,30 +33,40 @@ const ClubCard: React.FC<ClubCardProps> = ({ title, imageSrc, bgColor }) => {
         <h3 className="text-white text-2xl font-bold">{title}</h3>
       </div>
     </div>
-  )
-}
-
-const clubs = [
-  { title: 'Arsenal', imageSrc: '/j1.webp?height=300&width=300', bgColor: 'bg-emerald-200' },
-  { title: 'FC Barcelona', imageSrc: '/j4.jpg?height=300&width=300', bgColor: 'bg-yellow-200' },
-  { title: 'Manchester Utd', imageSrc: '/j5.webp?height=300&width=300', bgColor: 'bg-yellow-200' },
-  { title: 'Real Madrid', imageSrc: '/placeholder.svg?height=300&width=300', bgColor: 'bg-red-200' },
-  { title: 'Argentina', imageSrc: '/placeholder.svg?height=300&width=300', bgColor: 'bg-green-200' },
-  { title: 'Dortmund', imageSrc: '/placeholder.svg?height=300&width=300', bgColor: 'bg-pink-200' },
-  { title: 'GSW', imageSrc: '/placeholder.svg?height=300&width=300', bgColor: 'bg-orange-200' },
-  { title: '76ers', imageSrc: '/placeholder.svg?height=300&width=300', bgColor: 'bg-orange-200' },
-]
+  );
+};
 
 export default function TeamHeader() {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, align: 'start' })
+  const [clubs, setClubs] = useState<Club[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, align: 'start' });
 
   const scrollPrev = useCallback(() => {
-    if (emblaApi) emblaApi.scrollPrev()
-  }, [emblaApi])
+    if (emblaApi) emblaApi.scrollPrev();
+  }, [emblaApi]);
 
   const scrollNext = useCallback(() => {
-    if (emblaApi) emblaApi.scrollNext()
-  }, [emblaApi])
+    if (emblaApi) emblaApi.scrollNext();
+  }, [emblaApi]);
+
+  useEffect(() => {
+    const getClubs = async () => {
+      try {
+        const fetchedClubs = await fetchClubs();
+        setClubs(fetchedClubs);
+      } catch (error) {
+        console.error('Failed to fetch clubs:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    getClubs();
+  }, []);
+
+  if (loading) {
+    return <p>Loading clubs...</p>;
+  }
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -70,9 +74,12 @@ export default function TeamHeader() {
       <div className="relative">
         <div className="overflow-hidden" ref={emblaRef}>
           <div className="flex">
-            {clubs.map((category, index) => (
-              <div key={index} className="flex-[0_0_50%] min-w-0 sm:flex-[0_0_33.33%] md:flex-[0_0_25%] lg:flex-[0_0_16.66%] px-2">
-                <ClubCard {...category} />
+            {clubs.map((club, index) => (
+              <div
+                key={index}
+                className="flex-[0_0_50%] min-w-0 sm:flex-[0_0_33.33%] md:flex-[0_0_25%] lg:flex-[0_0_16.66%] px-2"
+              >
+                <ClubCard {...club} />
               </div>
             ))}
           </div>
@@ -91,5 +98,5 @@ export default function TeamHeader() {
         </button>
       </div>
     </div>
-  )
+  );
 }

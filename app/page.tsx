@@ -5,7 +5,6 @@ import JerseyCollection from "@/components/products/JerseyCollection";
 // import ProductRecommendation from "@/components/products/Recommendation";
 // import Hero2 from "@/components/products/Hero";
 import Footer from "@/components/common/Footer";
-
 // import ProductShowcase from "@/components/Hero3";
 // import FashionLandingPage from "@/components/Hero4";
 import Navbar from "@/components/common/Navbar";
@@ -25,30 +24,20 @@ export default function Home() {
     <Navbar />
     <Hero />
     {/* <ProductShowcase /> */}
-
 {/* <Hero /> */}
 {/* <Hero2 /> */}
-
 {/* <Card /> */}
 {/* <ProductRecommendation /> */}
-
 <TeamHeader />
 {/* <HeroComponent /> */}
 {/* <SearchComponent /> */}
-
-
-
 <JerseyCollection />
-
 <BannerComponent />
 <BrandComponent />
 <NewArrivals />
 {/* <Incentive /> */}
 <Footer />
-
 {/* <ProductPage /> */}
-
-
     </>
   );
 }

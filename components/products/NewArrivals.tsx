@@ -1,118 +1,24 @@
 'use client'
 import "slick-carousel/slick/slick.css";
-// import "slick-carousel/slick/slick-theme.css";
 import Slider from 'react-slick';
 import Image from "next/image";
 import Link from "next/link";
-
-const kits = [
-  {
-    id: 1,
-    name: "Barcelona Home Kit 23/24",
-    price: 649,
-    discountPrice: 499,
-    image: "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8YmFyY2Vsb25hfGVufDB8fDB8fHw%3D&auto=format&fit=crop&w=500&q=60",
-    discount: "23% OFF",
-    rating: 4.5,
-    type: "New",
-    class: "Home",
-    team: "Barcelona",
-    year: 2023,
-  },
-  {
-    id: 2,
-    name: "Arsenal Retro Kit 02/03",
-    price: 799,
-    discountPrice: 599,
-    image: "https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-    discount: "25% OFF",
-    rating: 4.9,
-    type: "Retro",
-    class: "Home",
-    team: "Arsenal",
-    year: 2003,
-  },
-  {
-    id: 3,
-    name: "Manchester United Away Kit 99/00",
-    price: 699,
-    discountPrice: 549,
-    image: "https://images.unsplash.com/photo-1575909610340-14f1881c0042?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-    discount: "21% OFF",
-    rating: 4.7,
-    type: "Vintage",
-    class: "Away",
-    team: "Manchester United",
-    year: 2000,
-  },
-  {
-    id: 4,
-    name: "AC Milan Custom Kit 23/24",
-    price: 899,
-    discountPrice: 699,
-    image: "https://images.unsplash.com/photo-1613933250571-31d737d6761d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-    discount: "22% OFF",
-    rating: 4.8,
-    type: "Custom",
-    class: "Third",
-    team: "AC Milan",
-    year: 2023,
-  },
-  {
-    id: 5,
-    name: "Real Madrid Vintage Kit 96/97",
-    price: 749,
-    discountPrice: 599,
-    image: "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cmVhbCUyMG1hZHJpZHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
-    discount: "20% OFF",
-    rating: 4.6,
-    type: "Vintage",
-    class: "Home",
-    team: "Real Madrid",
-    year: 1997,
-  },
-  {
-    id: 6,
-    name: "Chelsea Away Kit 22/23",
-    price: 649,
-    discountPrice: 499,
-    image: "https://images.unsplash.com/photo-1620155731653-b47af9751890?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-    discount: "23% OFF",
-    rating: 4.3,
-    type: "New",
-    class: "Away",
-    team: "Chelsea",
-    year: 2022,
-  },
-  {
-    id: 7,
-    name: "Juventus Custom Kit 22/23",
-    price: 849,
-    discountPrice: 649,
-    image: "https://images.unsplash.com/photo-1520967919012-70df527dcfa3?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-    discount: "24% OFF",
-    rating: 4.7,
-    type: "Custom",
-    class: "Third",
-    team: "Juventus",
-    year: 2023,
-  },
-  {
-    id: 8,
-    name: "Liverpool Retro Kit 90/91",
-    price: 799,
-    discountPrice: 649,
-    image: "https://images.unsplash.com/photo-1562106587-90819ff864bb?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-    discount: "19% OFF",
-    rating: 4.9,
-    type: "Retro",
-    class: "Home",
-    team: "Liverpool",
-    year: 1991,
-  },
-];
+import { useEffect, useState } from "react";
+import { fetchJerseys } from "@/services/mockApis";  
+import { Jersey } from "@/types/Jersey";
 
 export default function NewArrivals() {
+  const [newArrivals, setNewArrivals] = useState<Jersey[]>([]);
+
+  useEffect(() => {
+    const fetchNewArrivals = async () => {
+      const jerseys = await fetchJerseys(); // Fetch the jerseys from the mocked API
+      const filteredJerseys = jerseys.filter(jersey => jersey.arrival === "New"); // Filter by arrival: "New"
+      setNewArrivals(filteredJerseys); // Set the filtered jerseys in state
+    };
+
+    fetchNewArrivals();
+  }, []);
     const settings = {
         dots: false,
         infinite: true,
@@ -163,11 +69,11 @@ export default function NewArrivals() {
           </header>
 
           <Slider {...settings} className="mt-8">
-            {kits.map((kit) => (
+          {newArrivals.map((kit) => (
               <div key={kit.id} className="px-2">
                 <Link href={`/jersey/${kit.id}`} className="relative flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md">
                   <div className="relative mx-3 mt-3 flex h-60 overflow-hidden rounded-xl" >
-                    <Image width={600} height={600} className="object-cover" src={kit.image} alt={kit.name} />
+                    <Image width={600} height={600} className="object-cover" src={kit.images[0]} alt={kit.name} />
                     <span className="absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white">
                       {kit.discount}
                     </span>
